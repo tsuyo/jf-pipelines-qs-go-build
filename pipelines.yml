@@ -6,7 +6,7 @@ resources:
       path: tsuyo/jfrog-pipelines-quickstart-go-build
       branches:
         include: main
-      gitProvider: myGithub
+      gitProvider: myGitHub
        
   # Build info for the published Go module
   - name: go_build_info_publish_module
