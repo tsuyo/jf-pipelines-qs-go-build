@@ -1,0 +1,75 @@
+resources:
+  # Sample Go app in a GitRepo
+  - name: go_example
+    type: GitRepo
+    configuration:
+      path: tsuyo/jfrog-pipelines-quickstart-go-build
+      branches:
+        include: main
+      gitProvider: myGithub
+       
+  # Build info for the published Go module
+  - name: go_build_info_publish_module
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: myArtifactory
+      buildName: go_example_module_publish
+      buildNumber: 332
+       
+  # Build info for the published Go app
+  - name: go_build_info_publish
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: myArtifactory
+      buildName: go_example_build_publish
+      buildNumber: 1
+
+pipelines:
+  - name: go_build_pipeline_example
+    steps:
+      # Build the Go sample app from the GitRepo
+      - name: build_go
+        type: GoBuild
+        configuration:
+          sourceLocation: .
+          repository: go-local
+          outputLocation: /tmp/dist
+          outputFile: hello_gb
+          inputResources:
+            - name: go_example
+          integrations:
+            - name: myArtifactory
+             
+      # Publish the Go sample app binary to Artifactory
+      - name: publish_go_binary
+        type: GoPublishBinary
+        configuration:
+          inputSteps:
+            - name: build_go
+          targetRepository: go-local
+          integrations:
+            - name: myArtifactory
+             
+      # Publish the Go sample app build info
+      - name: publish_build
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: publish_go_binary
+          outputResources:
+            - name: go_build_info_publish
+             
+      # Publish the Go module from the GitRepo
+      - name: publish_go_module
+        type: GoPublishModule
+        configuration:
+          sourceLocation: .
+          version: v0.0.0
+          targetRepository: go-local
+          autoPublishBuildInfo: true
+          integrations:
+            - name: myArtifactory
+          inputResources:
+            - name: go_example
+          outputResources:
+            - name: go_build_info_publish_module
