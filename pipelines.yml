@@ -3,7 +3,7 @@ resources:
   - name: go_example
     type: GitRepo
     configuration:
-      path: tsuyo/jfrog-pipelines-quickstart-go-build
+      path: tsuyo/jf-pipelines-qs-go-build
       branches:
         include: main
       gitProvider: myGitHub
