@@ -1,5 +1,5 @@
 resources:
-  # Sample Go app in a GitRepo (test)
+  # Sample Go app in a GitRepo
   - name: go_example
     type: GitRepo
     configuration:
