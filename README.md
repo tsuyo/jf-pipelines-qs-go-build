@@ -7,4 +7,4 @@ Source codes are based on https://blog.golang.org/using-go-modules
 # Prerequisites
 - Pipelines/Integration: myGitHub
 - Pipelines/Integration: myArtifactory
-- Artifactory/repo: docker-local
+- Artifactory/repo: go-local
