@@ -5,7 +5,7 @@ resources:
     configuration:
       path: tsuyo/jf-pipelines-qs-go-build
       branches:
-        include: main
+        include: master
       gitProvider: myGitHub
        
   # Build info for the published Go module
