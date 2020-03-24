@@ -25,7 +25,7 @@ resources:
       buildNumber: 1
 
 pipelines:
-  - name: go_build_pipeline_example
+  - name: quickstart_go_build
     steps:
       # Build the Go sample app from the GitRepo
       - name: build_go
