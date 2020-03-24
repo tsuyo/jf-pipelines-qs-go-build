@@ -6,5 +6,6 @@ Source codes are based on https://blog.golang.org/using-go-modules
 
 # Prerequisites
 - Pipelines/Integration: myGitHub
+  - https://github.com/tsuyo/jf-pipelines-qs-go-build (for pipelines.yml)
 - Pipelines/Integration: myArtifactory
-- Artifactory/repo: go-local
+  - go-local (go/local)
