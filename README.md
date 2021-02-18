@@ -3,7 +3,7 @@
 Sources for [Pipeline Example: Go Build](https://www.jfrog.com/confluence/display/JFROG/Pipeline+Example%3A+Go+Build)
 
 ## Prerequisites
-- Integration
+- Integrations
   - tsuyo_github: GitHub
   - artifactory: Artifactory
 - Repos
