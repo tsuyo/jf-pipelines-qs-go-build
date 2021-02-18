@@ -1,0 +1,3 @@
+repoPath: tsuyo/jfrog-pipelines-quickstart--go-build
+gitProvider: tsuyo_github
+artifactory: artifactory
