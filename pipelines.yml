@@ -44,7 +44,6 @@ pipelines:
           integrations:
             - name: {{ .Values.artifactory }}
 
-      # Publish the Go sample app build info. Docs at https://www.jfrog.com/confluence/display/JFROG/PublishBuildInfo
       - name: publish_build_info
         type: PublishBuildInfo
         configuration:
