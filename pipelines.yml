@@ -16,6 +16,7 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.artifactory }}
+      buildName: quickstart_go_build
 
 
 pipelines:
