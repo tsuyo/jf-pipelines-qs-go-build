@@ -3,52 +3,52 @@ valuesFilePath: ./values.yml
 
 resources:
   # Sample Go app in a GitRepo
-  - name: go_repo
+  - name: {{ .Values.gitRepo.name }}
     type: GitRepo
     configuration:
-      path: {{ .Values.repoPath }}
+      path: {{ .Values.gitRepo.path }}
       # branches:
       #   include: main
       gitProvider: {{ .Values.gitProvider }}
 
   # Build info for the published Go app
-  - name: go_buildinfo
+  - name: {{ .Values.build.name }}
     type: BuildInfo
     configuration:
       sourceArtifactory: {{ .Values.artifactory }}
-      buildName: quickstart_go_build
+      # buildName and buildNumber are used for inputResources
+      # but these are overwritten with pipelines name when creating (as outputResources)
+      # buildName: {{ .Values.build.name }}
 
 
 pipelines:
-  - name: go_build_pipeline_example
+  - name: {{ .Values.build.name }}
     steps:
-      # Build the Go sample app from the GitRepo. Docs at https://www.jfrog.com/confluence/display/JFROG/GoBuild
-      - name: build_go
+      - name: go_build
         type: GoBuild
         configuration:
           sourceLocation: .
-          resolverRepo: go
+          resolverRepo: {{ .Values.artifactoryRepo.resolver.name }}
           noRegistry: true
           inputResources:
-            - name: go_repo
+            - name: {{ .Values.gitRepo.name }}
           integrations:
             - name: {{ .Values.artifactory }}
 
-      # Publish the Go sample app binary to Artifactory. Docs at https://www.jfrog.com/confluence/display/JFROG/GoPublishBinary
-      - name: publish_go_binary
+      - name: go_publish_binary
         type: GoPublishBinary
         configuration:
           inputSteps:
-            - name: build_go
-          targetRepository: go-local
+            - name: go_build
+          targetRepository: {{ .Values.artifactoryRepo.targetBinary.name }}
           integrations:
             - name: {{ .Values.artifactory }}
 
       # Publish the Go sample app build info. Docs at https://www.jfrog.com/confluence/display/JFROG/PublishBuildInfo
-      - name: publish_build
+      - name: publish_build_info
         type: PublishBuildInfo
         configuration:
           inputSteps:
-            - name: publish_go_binary
+            - name: go_publish_binary
           outputResources:
-            - name: go_buildinfo
+            - name: {{ .Values.build.name }}

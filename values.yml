@@ -1,3 +1,12 @@
-repoPath: tsuyo/jfrog-pipelines-quickstart--go-build
 gitProvider: tsuyo_github
 artifactory: artifactory
+gitRepo:
+  name: github__tsuyo__jfrog_pipelines_quickstart__go_build
+  path: tsuyo/jfrog-pipelines-quickstart--go-build
+artifactoryRepo:
+  resolver:
+    name: go
+  targetBinary:
+    name: go-local
+build:
+  name: quickstart_go_build
