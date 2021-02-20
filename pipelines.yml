@@ -28,6 +28,7 @@ pipelines:
         type: GoBuild
         configuration:
           sourceLocation: .
+          outputFile: "{{ .Values.pipelines.name }}_${run_number}"
           resolverRepo: {{ .Values.artifactoryRepo.resolver.name }}
           noRegistry: true
           inputResources:
